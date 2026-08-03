@@ -97,7 +97,7 @@ const ArrayFunctions = (props: Props) => {
         icon={AddIcon}
         mode="ghost"
         onClick={handleAddMultipleBtnClick}
-        text="Add multiple images"
+        text="Add multiple images (Imageshop)"
       />
       {isAssetSourceOpen && (
         <ImageShopAssetSource

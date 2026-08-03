@@ -402,7 +402,7 @@ const ArrayFunctions = props => {
       icon: icons.AddIcon,
       mode: "ghost",
       onClick: handleAddMultipleBtnClick,
-      text: "Add multiple images"
+      text: "Add multiple images (Imageshop)"
     }), isAssetSourceOpen && /* @__PURE__ */jsxRuntime.jsx(ImageShopAssetSource, {
       assetSource: {
         name: "imageshop",

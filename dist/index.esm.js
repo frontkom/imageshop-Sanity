@@ -391,7 +391,7 @@ const ArrayFunctions = props => {
       icon: AddIcon,
       mode: "ghost",
       onClick: handleAddMultipleBtnClick,
-      text: "Add multiple images"
+      text: "Add multiple images (Imageshop)"
     }), isAssetSourceOpen && /* @__PURE__ */jsx(ImageShopAssetSource, {
       assetSource: {
         name: "imageshop",
