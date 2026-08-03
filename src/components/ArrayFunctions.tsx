@@ -21,7 +21,7 @@ type Props = ArrayInputFunctionsProps<{ _key: string }, ArraySchemaType> & {
 }
 
 const ArrayFunctions = (props: Props) => {
-  const { onItemAppend, imageShopConfig } = props
+  const { onItemAppend, imageShopConfig, schemaType } = props
   const [isAssetSourceOpen, setIsAssetSourceOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const client = useClient({ apiVersion: '2023-08-08' })
@@ -36,6 +36,11 @@ const ArrayFunctions = (props: Props) => {
 
   const onSelect = async (files: AssetFromSource[]) => {
     setIsLoading(true)
+
+    // Append using the array's declared member type so items satisfy the field
+    // schema (e.g. a custom image object with a required `alt`), rather than a
+    // generic `image` that would mismatch the list and fail validation.
+    const memberType = (schemaType?.of?.[0] as { name?: string })?.name ?? 'image'
 
     // We support only kind url.
 
@@ -56,14 +61,20 @@ const ArrayFunctions = (props: Props) => {
         // Create a random key for the array item.
         const _key = randomKey(12)
 
-        // Create object based on sanity datastructure for an image.
+        // Prefill `alt` from the Imageshop asset description when present; when
+        // absent, the field's own validation flags the empty required alt.
+        const alt =
+          typeof dataLookup?.description === 'string' ? dataLookup.description.trim() : ''
+
+        // Create object based on the array's member type.
         const theImage = {
-          _type: 'image',
+          _type: memberType,
           _key,
           asset: {
             _type: 'reference',
             _ref: imageAssetDocument._id,
           },
+          ...(alt ? { alt } : {}),
         }
 
         onItemAppend(theImage)

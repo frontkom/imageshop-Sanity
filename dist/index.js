@@ -348,7 +348,8 @@ function randomKey(length) {
 const ArrayFunctions = props => {
   const {
     onItemAppend,
-    imageShopConfig
+    imageShopConfig,
+    schemaType
   } = props;
   const [isAssetSourceOpen, setIsAssetSourceOpen] = react.useState(false);
   const [isLoading, setIsLoading] = react.useState(false);
@@ -363,6 +364,7 @@ const ArrayFunctions = props => {
   };
   const onSelect = async files => {
     setIsLoading(true);
+    const memberType = schemaType?.of?.[0]?.name ?? "image";
     const promises = files.map(async file => {
       if (typeof file.value === "string" && file.kind === "url") {
         const resp = await fetch(file.value);
@@ -373,13 +375,17 @@ const ArrayFunctions = props => {
           ...dataLookup
         });
         const _key = randomKey(12);
+        const alt = typeof dataLookup?.description === "string" ? dataLookup.description.trim() : "";
         const theImage = {
-          _type: "image",
+          _type: memberType,
           _key,
           asset: {
             _type: "reference",
             _ref: imageAssetDocument._id
-          }
+          },
+          ...(alt ? {
+            alt
+          } : {})
         };
         onItemAppend(theImage);
       }
