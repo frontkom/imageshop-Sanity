@@ -394,8 +394,11 @@ const ArrayFunctions = props => {
     setIsLoading(false);
     setIsAssetSourceOpen(false);
   };
-  return /* @__PURE__ */jsxRuntime.jsxs("div", {
-    children: [/* @__PURE__ */jsxRuntime.jsx(ui.Button, {
+  return /* @__PURE__ */jsxRuntime.jsxs(ui.Stack, {
+    space: 2,
+    children: [/* @__PURE__ */jsxRuntime.jsx(sanity.ArrayOfObjectsFunctions, {
+      ...props
+    }), /* @__PURE__ */jsxRuntime.jsx(ui.Button, {
       icon: icons.AddIcon,
       mode: "ghost",
       onClick: handleAddMultipleBtnClick,

@@ -1,10 +1,10 @@
 import { ArraySchemaType } from 'sanity'
 import { AddIcon } from '@sanity/icons'
 import { useState } from 'react'
-import { Button } from '@sanity/ui'
+import { Button, Stack } from '@sanity/ui'
 import { randomKey } from '@sanity/util/content'
 import ImageShopAssetSource from './ImageShopAssetSource'
-import { ArrayInputFunctionsProps, AssetFromSource, useClient } from 'sanity'
+import { ArrayInputFunctionsProps, ArrayOfObjectsFunctions, AssetFromSource, useClient } from 'sanity'
 import { ImageAsset } from 'sanity'
 import { ImageShopPluginConfig } from '../types'
 
@@ -89,7 +89,10 @@ const ArrayFunctions = (props: Props) => {
   }
 
   return (
-    <div>
+    <Stack space={2}>
+      {/* Keep the default add controls (single add, incl. asset-source choice)
+          alongside the batch selector, rather than replacing them. */}
+      <ArrayOfObjectsFunctions {...props} />
       <Button
         icon={AddIcon}
         mode="ghost"
@@ -113,7 +116,7 @@ const ArrayFunctions = (props: Props) => {
           accept="image/*"
         />
       )}
-    </div>
+    </Stack>
   )
 }
 

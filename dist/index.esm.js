@@ -1,4 +1,4 @@
-import { useClient, definePlugin, isArrayOfObjectsSchemaType } from 'sanity';
+import { useClient, ArrayOfObjectsFunctions, definePlugin, isArrayOfObjectsSchemaType } from 'sanity';
 import { jsxs, jsx } from 'react/jsx-runtime';
 import { useState, useRef, useEffect } from 'react';
 import { Card, Stack, Text, Button, Dialog, Box, Flex, Spinner } from '@sanity/ui';
@@ -383,8 +383,11 @@ const ArrayFunctions = props => {
     setIsLoading(false);
     setIsAssetSourceOpen(false);
   };
-  return /* @__PURE__ */jsxs("div", {
-    children: [/* @__PURE__ */jsx(Button, {
+  return /* @__PURE__ */jsxs(Stack, {
+    space: 2,
+    children: [/* @__PURE__ */jsx(ArrayOfObjectsFunctions, {
+      ...props
+    }), /* @__PURE__ */jsx(Button, {
       icon: AddIcon,
       mode: "ghost",
       onClick: handleAddMultipleBtnClick,
